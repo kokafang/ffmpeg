@@ -1,14 +1,10 @@
-# Start with the official n8n Docker image as the base.
 FROM n8nio/n8n:latest
 
-# Switch to the root user to install software packages.
+# 切换到 root 用户来安装软件包
 USER root
 
-# Update the package list and install the official FFmpeg package.
-# The "-y" flag automatically confirms the installation.
-RUN apt-get update && apt-get install -y ffmpeg
+# 更新软件包列表并使用 apk 安装 FFmpeg
+RUN apk update && apk add --no-cache ffmpeg
 
-# Switch back to the non-privileged "node" user for security reasons.
-# This is the user that n8n runs as by default.
+# 安装完成后，切换回默认的非特权用户
 USER node
-
